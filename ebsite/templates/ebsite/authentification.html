@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Confirmation{% endblock %}
+{% block content %}
+    {% for Contact in contact %}
+<div>
+    <h2>Bienvenue {{Contact.prenom_contact}} {{Contact.nom_contact}}!</h2>
+    {% endfor %}
+    <p>
+Nous sommes ravis de vous revoir parmis nous ! Venez découvrir nos nouvelles créations.<br>
+Bon surf.
+    </p>
+</div>
+<a class="btn btn-lg btn-primary pull-right" href="{% url 'sign_out' %}"><i class="fa fa-shopping-cart"></i> Se déconnecter</a>
+    
+{% endblock %}

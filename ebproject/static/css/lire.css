@@ -1,0 +1,48 @@
+/*lire.html*/
+body{
+    font-family: Verdana, sans-serif;
+}
+#imagelire{
+    height : 370px;
+    width : 450px;
+    float : left;  
+    border : 5px solid #20B4D3;   
+}
+
+.touttexte{
+    float : left;
+    margin-left: 10px;
+    font-family: Verdana, sans-serif;
+}
+
+.titlelire{
+    font-size: 50px;
+    font-weight: bold;
+    font-family: cursive;  
+}
+.desiglire{
+    font-size: 15px;
+    text-decoration: underline;
+    font-family: Verdana, sans-serif;
+}
+.desiglire1{
+    font-size: 15px;
+    font-family: Verdana, sans-serif;
+}
+
+.pricelire{
+    font-size: 25px;
+    font-family: Verdana, sans-serif;
+    border: 10px solid #20B4D3;
+    word-spacing: 4px;
+}
+
+.quantlire{
+    font-size: 15px;
+    text-decoration: underline;
+    font-family: Verdana, sans-serif; 
+}
+#number{
+    width: 100px;
+    font-family: Verdana, sans-serif;
+}

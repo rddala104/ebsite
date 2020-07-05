@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Mes adresses{% endblock %}
+{% block content %}
+    <div class="col-md-3">
+        <p class="lead">Mon espace client</p>
+        <div class="list-group">
+            <a href="{% url 'account' %}" class="list-group-item"><i class="fa fa-angle-right"></i>&nbsp; Mes informations personnelles</a>
+            <a href="{% url 'orders' %}" class="list-group-item active"><i class="fa fa-angle-right"></i>&nbsp; Mes commandes</a>
+            <a href="{% url 'addresses' %}" class="list-group-item"><i class="fa fa-angle-right"></i>&nbsp; Mes adresses</a>
+        </div>
+    </div>
+
+    <div class="col-md-9">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Mes commandes</h3>
+            </div>
+            <div class="panel-body">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>N°</th>
+                            <th>Date de commande</th>
+                            <th>Statut de la commande</th>
+                            <th>Date d'expédition</th>
+                            <th>Articles</th>
+                            <th>Prix total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for order in orders %}
+                        <tr>
+                            <td>{{ order.id }}</td>
+                            <td>{{ order.order_date }}</td>
+                            <td>{{ order.get_status_display }}</td>
+                            <td>{% if order.shipping_date %}{{ order.shipping_date }}{% else %}Pas encore expédiée{% endif %}</td>
+                            <td>{{ order.article_qty }}</td>
+                            <td>{{ order.total }} €</td>
+                        </tr>
+                    {% empty %}
+                    <p class="text-info"><i class="fa fa-lg fa-info-circle pull-left"></i>Vous n'avez pas encore commandé sur notre site.</p>
+
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

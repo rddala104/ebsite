@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Mes adresses{% endblock %}
+{% block content %}
+    <div class="col-md-3">
+        <p class="lead">Mon espace client</p>
+        <div class="list-group">
+            <a href="{% url 'account' %}" class="list-group-item"><i class="fa fa-angle-right"></i>&nbsp; Mes informations personnelles</a>
+            <a href="{% url 'orders' %}" class="list-group-item"><i class="fa fa-angle-right"></i>&nbsp; Mes commandes</a>
+            <a href="{% url 'addresses' %}" class="list-group-item active"><i class="fa fa-angle-right"></i>&nbsp; Mes adresses</a>
+        </div>
+    </div>
+
+    <div class="col-md-9">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Mes adresses</h3>
+            </div>
+            <div class="panel-body">
+                {% for address in addresses %}
+                <div class="col-sm-4 col-lg-4 col-md-4">
+                    <div class="thumbnail shipping" style="padding-top:10px; padding-bottom:10px;">
+                        <strong>{{ address.prenom_contact }} {{ address.nom_contact }}</strong> <br /><br />
+                        {{ address.rue }}<br />
+                        {{ address.codepostal }} {{ address.ville }}
+                    </div>
+                </div>
+                {% empty %}
+                    <p class="text-info"><i class="fa fa-3x fa-info-circle pull-left"></i>Vous n'avez pas encore renseigné d'adresse dans votre compte client.
+                    <br />Pour commander, commencez par ajouter une adresse en cliquant sur le bouton "Ajouter une adresse".</p>
+
+                {% endfor %}
+                    <a class="btn btn-success pull-right" href="{% url 'add_address' %}?next={% url 'addresses' %}">
+                        <i class="fa fa-plus"></i> Ajouter une adresse
+                    </a>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

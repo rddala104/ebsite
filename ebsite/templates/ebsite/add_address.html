@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Mes adresses{% endblock %}
+{% block content %}
+{% load bootstrap3 %}
+    {% if get.next == '/shipping/' %}
+        <div class="process">
+            <div class="process-row">
+                <div class="process-step active">
+                    <button type="button" class="btn btn-disabled btn-circle" disabled="disabled"><i class="fa fa-user fa-3x"></i></button>
+                    <p>1. Identification</p>
+                </div>
+                <div class="process-step">
+                    <button type="button" class="btn btn-success btn-circle" disabled="disabled"><i class="fa fa-truck fa-flip-horizontal fa-3x"></i></button>
+                    <p>2. Livraison</p>
+                </div>
+                <div class="process-step">
+                    <button type="button" class="btn btn-default btn-circle" disabled="disabled"><i class="fa fa-credit-card fa-3x"></i></button>
+                    <p>3. Paiement</p>
+                </div>
+                 <div class="process-step">
+                    <button type="button" class="btn btn-default btn-circle" disabled="disabled"><i class="fa fa-check fa-3x"></i></button>
+                    <p>4. Confirmation</p>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title"> Saisie d'une nouvelle addresse</h3>
+        </div>
+        <div class="panel-body">
+            <form novalidate method="post" class="form">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-4">{% bootstrap_field add_address_form.company %}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">{% bootstrap_field add_address_form.prenom_contact %}</div>
+                            <div class="col-md-4">{% bootstrap_field add_address_form.nom_contact %}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-8">
+                                {% bootstrap_field add_address_form.rue %}
+                               
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">{% bootstrap_field add_address_form.codepostal %}</div>
+                            <div class="col-md-4">{% bootstrap_field add_address_form.ville %}</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">{% bootstrap_field add_address_form.telephone %}</div>
+                            
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                {% buttons %}
+                                    <button type="submit" class="btn btn btn-lg btn-primary" style="margin-top: 12px;" name="register">
+                                        Enregistrer cette nouvelle adresse
+                                    </button>
+                                {% endbuttons %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

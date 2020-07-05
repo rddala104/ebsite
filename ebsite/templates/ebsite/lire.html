@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Détails articles{% endblock %}
+{% block content %}
+<body>
+
+{% if error %}
+    {{ error }}
+{% else %}
+{% for i in essai %}
+    <div><img id="imagelire" alt="photographie de l'article" src="{{ i.photo1_article.url }}"></div>
+    <div class="touttexte">
+    <h1 class="titlelire"><strong> {{ i.nom_article}} </strong></h1>
+    <h2 class="desiglire">Désignation :</h2><p class="desiglire1">{{ i.description_article}}</p>
+    <h2 class="pricelire"><span>Prix :</span>{{ i.prix_article }}€</h2>
+    <!-- <label for="number" class="quantlire">Quantité :  </label> -->
+    <div class="form-group">
+        <label for="number">Quantité </label>
+        <select class="form-control" id="exampleFormControlSelect1">
+          <option>1</option>
+          <option>2</option>
+          <option>3</option>
+          <option>4</option>
+          <option>5</option>
+        </select>
+      </div>
+    <!-- <input id="number" type="number" placeholder="Nombre"><br><br><br> -->
+    <a href="{% url 'boutique' %}" onclick="history.back()" class="btn btn-info" data-toggle="tooltip" data-placement="top" title="Retour"><i class="fas fa-backward"></i></a>
+    <a href="{% url 'add_to_cart' product_id=i.id qty=1%}" class="btn btn-info" data-toggle="tooltip" data-placement="top" title="Ajouter au panier"><i class="fas fa-cart-plus"></i></a>
+    </div>
+{% endfor %}
+{% endif %}
+{% endblock %}
+</body>

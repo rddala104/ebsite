@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Register{% endblock %}
+{% block content %}
+    {% if get.next == '/checkout/' %}
+        <div class="process">
+            <div class="process-row">
+                <div class="process-step active">
+                    <button type="button" class="btn btn-success btn-circle" disabled="disabled"><i class="fa fa-user fa-3x"></i></button>
+                    <p>1. Identification</p>
+                </div>
+                <div class="process-step">
+                    <button type="button" class="btn btn-default btn-circle" disabled="disabled"><i class="fa fa-truck fa-3x"></i></button>
+                    <p>2. Livraison</p>
+                </div>
+                <div class="process-step">
+                    <button type="button" class="btn btn-default btn-circle" disabled="disabled"><i class="fa fa-credit-card fa-3x"></i></button>
+                    <p>3. Paiement</p>
+                </div>
+                 <div class="process-step">
+                    <button type="button" class="btn btn-default btn-circle" disabled="disabled"><i class="fa fa-check fa-3x"></i></button>
+                    <p>4. Confirmation</p>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+    <div class="row">
+		<div class="col-md-4 col-md-offset-1">
+            <div class="panel panel-default">
+			  	<div class="panel-heading">
+			    	<h3 class="panel-title">Pas encore client ? <span class="pull-right">Créez votre compte ...</span></h3>
+			 	</div>
+			  	<div class="panel-body">
+			    	{% load bootstrap3 %}
+
+                    <form novalidate method="post" class="form">
+                        {% csrf_token %}
+
+                        {% bootstrap_form form %}
+                        {% buttons %}
+                            <button type="submit" class="btn btn-block btn-lg btn-primary" name="register">
+                                Créer mon compte client
+                            </button>
+                        {% endbuttons %}
+                    </form>
+                </div>
+			</div>
+		</div>
+        <div class="col-md-1">
+            <div class="divider"><span class="word">ou</span></div>
+        </div>
+        <div class="col-md-4">
+    		<div class="panel panel-default">
+			  	<div class="panel-heading">
+			    	<h3 class="panel-title">Déjà client ? <span class="pull-right">Identifiez-vous ...</span></h3>
+			 	</div>
+			  	<div class="panel-body">
+			    	<form accept-charset="UTF-8" role="form" method="post" action="">
+                    {% csrf_token %}
+                    <fieldset>
+			    	  	<div class="form-group">
+			    		    <input class="form-control" placeholder="Nom d'utilisateur" name="username" type="text">
+			    		</div>
+			    		<div class="form-group">
+			    			<input class="form-control" placeholder="Mot de passe" name="password" type="password" value="">
+			    		</div>
+
+			    		<input class="btn btn-lg btn-success btn-block" type="submit" value="S'identifier">
+			    	</fieldset>
+			      	</form>
+			    </div>
+			</div>
+        </div>
+
+	</div>
+
+{% endblock %}

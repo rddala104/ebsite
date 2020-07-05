@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Mes adresses{% endblock %}
+{% block content %}
+
+    <div class="process">
+        <div class="process-row">
+            <div class="process-step active">
+                <button type="button" class="btn btn-disabled btn-circle" disabled="disabled"><i class="fa fa-user fa-3x"></i></button>
+                <p>1. Identification</p>
+            </div>
+            <div class="process-step">
+                <button type="button" class="btn btn-success btn-circle" disabled="disabled"><i class="fa fa-truck fa-flip-horizontal fa-3x"></i></button>
+                <p>2. Livraison</p>
+            </div>
+            <div class="process-step">
+                <button type="button" class="btn btn-default btn-circle" disabled="disabled"><i class="fa fa-credit-card fa-3x"></i></button>
+                <p>3. Paiement</p>
+            </div>
+             <div class="process-step">
+                <button type="button" class="btn btn-default btn-circle" disabled="disabled"><i class="fa fa-check fa-3x"></i></button>
+                <p>4. Confirmation</p>
+            </div>
+        </div>
+    </div>
+    <form method="post" action="?next={% url 'checkout' %}">
+        {% csrf_token %}
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title"><i class="fa fa-truck fa-flip-horizontal"></i> Adresse de livraison</h3>
+            </div>
+            <div class="panel-body">
+                {% for address in addresses %}
+                <div class="col-sm-4 col-lg-4 col-md-4">
+                    <div class="thumbnail shipping">
+                        <div class="radio">
+                            <label>
+                                <input type="radio" name="shipping_address" id="shipping_address_{{ forloop.counter }}"
+                                       value="{{ address.id }}" {% if forloop.counter == 1 or shipping_address == address.id %}checked{% endif %}>
+                                <strong>{{ address.first_name }} {{ address.last_name }}</strong> <br /><br />
+                                {{ address.address }}<br />
+                                {{ address.postcode }} {{ address.city }}
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                    <p class="text-info"><i class="fa fa-3x fa-info-circle pull-left"></i>Vous n'avez pas encore renseigné d'adresse dans votre compte client.
+                    <br />Pour commander, commencez par ajouter une adresse en cliquant sur le bouton "Ajouter une adresse".</p>
+
+                {% endfor %}
+                    <a class="btn btn-success pull-right" href="{% url 'add_address' %}?next={% url 'shipping' %}">
+                        <i class="fa fa-plus"></i> Ajouter une adresse
+                    </a>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title"><i class="fa fa-credit-card fa-flip-horizontal"></i> Adresse de facturation</h3>
+            </div>
+            <div class="panel-body">
+                {% for address in addresses %}
+                <div class="col-sm-4 col-lg-4 col-md-4">
+                    <div class="thumbnail shipping">
+                        <div class="radio">
+                            <label>
+                                <input type="radio" name="invoicing_address" id="invoicing_address_{{ forloop.counter }}"
+                                       value="{{ address.id }}" {% if forloop.counter == 1 or invoicing_address == address.id %}checked{% endif %}>
+                                <strong>{{ address.prenom_contact }} {{ address.nom_contact }}</strong> <br /><br />
+                                {{ address.rue }}<br />
+                                {{ address.codepostal }} {{ address.ville }}
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                    <p class="text-info"><i class="fa fa-3x fa-info-circle pull-left"></i>Vous n'avez pas encore renseigné d'adresse dans votre compte client.
+                    <br />Pour commander, commencez par ajouter une adresse en cliquant sur le bouton "Ajouter une adresse".</p>
+
+                {% endfor %}
+                    <a class="btn btn-success pull-right" href="{% url 'shipping' %}?next={% url 'add_address' %}?next={% url 'shipping' %}">
+                        <i class="fa fa-plus"></i> Ajouter une adresse
+                    </a>
+            </div>
+        </div>
+        {% if addresses %}
+            <button type="submit" class="btn btn-lg btn-primary pull-right" name="register">
+                <i class="fa fa-credit-card"></i> Régler la commande</a>
+            </button>
+        {% endif %}
+    </form>
+
+{% endblock %}

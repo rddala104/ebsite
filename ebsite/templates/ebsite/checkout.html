@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Sign-out{% endblock %}
+{% block content %}
+
+    <div class="process">
+        <div class="process-row">
+            <div class="process-step active">
+                <button type="button" class="btn btn-disabled btn-circle" disabled="disabled"><i class="fa fa-user fa-3x"></i></button>
+                <p>1. Identification</p>
+            </div>
+            <div class="process-step">
+                <button type="button" class="btn btn-disabled btn-circle" disabled="disabled"><i class="fa fa-truck fa-flip-horizontal fa-3x"></i></button>
+                <p>2. Livraison</p>
+            </div>
+            <div class="process-step">
+                <button type="button" class="btn btn-success btn-circle" disabled="disabled"><i class="fa fa-credit-card fa-3x"></i></button>
+                <p>3. Paiement</p>
+            </div>
+             <div class="process-step">
+                <button type="button" class="btn btn-default btn-circle" disabled="disabled"><i class="fa fa-check fa-3x"></i></button>
+                <p>4. Confirmation</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title"><i class="fa fa-shopping-cart"></i> Récapitulatif et paiement</h3>
+        </div>
+        <div class="panel-body">
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>Produit</th>
+                    <th>Réf.</th>
+                    <th>PU</th>
+                    <th>Qté</th>
+                    <th>Total HT</th>
+                    <th>Total TTC</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for cart_line in cart %}
+                    <tr>
+                        <td>{{ cart_line.product.nom_article }}</td>
+                        <td>{{ cart_line.product.id_article }}</td>
+                        <td>{{ cart_line.product.prix_article }} €</td>
+                        <td>{{ cart_line.quantity }}</td>
+                         <td>{{ cart_line.total_ht }} €</td>
+                        <!-- <td>{{ cart_line.total_vat }} €</td> -->
+                        <td>{{ cart_line.total }} €</td>s
+                    </tr>
+                {% endfor %}
+                </tbody>
+                <tfoot>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th>À payer</th>
+                    <th>{{ grand_total }} €</th>
+                </tfoot>
+            </table>
+            <form method="post">
+                {% csrf_token %}
+                <div class="pull-right">
+                    <script
+                        src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                        data-key="pk_test_cnkqZS69ZGzVusGSGYdZGtnJ00ZrUfKUPJ"
+                        data-email="{{ user_email }}"
+                        data-label="Payer par carte bancaire"
+                        data-panel-label="Payer"
+                        data-allow-remember-me="false"
+                        data-name="e&b"
+                        data-currency="eur"
+                        data-amount="{{ grand_total_cents }}">
+                    </script>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+
+{% endblock %}
+
+{% block javascripts %}
+
+{% endblock %}

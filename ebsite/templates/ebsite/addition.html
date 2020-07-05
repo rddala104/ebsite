@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Ma page d'accueil{% endblock %}
+{% block content %}
+<body>
+<main class="site-content">
+    <div class="container">
+        <h3 class="h3">Notre Boutique</h3>               
+        <div class="row">
+            
+            {% for n in articles %}    
+            <div class="col-md-3 col-sm-6">
+                <div class="product-grid">
+                    <div class="product-image">
+                        <a href="#" id="monancre">
+                            <img class="pic-1" src="{{n.photo1_article.url}}">
+                            <img class="pic-2" src="{{n.photo2_article.url}}">
+                        </a>
+                        <ul class="social">
+                            <li><a href="{% url 'detail' id=n.id_article%}" class="btn btn-secondary" data-toggle="tooltip" data-placement="right" data-tip="vue détaillée" ><i class="fa fa-search"></i></a></li>
+                            <li><a href="{% url 'add_to_cart' product_id=n.id qty=1%}" data-tip="Ajouter au panier"><i class="fa fa-shopping-cart"></i></a></li>
+                    </div> 
+                              
+                        </ul>
+                        <span class="product-new-label">Nouveauté</span>
+                    <div class="product-content">
+                        
+                        <h3 class="title"><a href="#1">{{ n.nom_article }}</a></h3>
+                        
+                        <div class="price">{{ n.prix_article }}€
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>   
+</main>
+<nav class="pagination1">
+            {% if paginate %}
+                    {% if articles.has_previous %}
+                        <li><a href="?page={{ articles.previous_page_number }}"><i class="fas fa-chevron-circle-left"></i></a></li>
+                    {% endif %}
+                    {% if articles.has_next %}
+                        <li><a href="?page={{ articles.next_page_number }}"><i class="fas fa-chevron-circle-right"></i></a></li>
+                    {% endif %}
+            {% endif %}
+</nav>   
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <script src="{% static 'js/jquery.bootstrap.modal.forms.js' %}"></script>
+</body>
+{% endblock %}
