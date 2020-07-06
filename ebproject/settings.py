@@ -129,10 +129,10 @@ USE_TZ = True
 
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-STATIC_URL = '/home/rdd/rdd.pythonanywhere.com/static/'
+STATIC_URL = 'home/rdd/rdd.pythonanywhere.com/static'
 # STATIC_ROOT = os.path.join(PROJECT_ROOT, 'static')
 # STATIC_URL = '/static/'STATICFILES_DIRS
 
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-MEDIA_URL='/home/rdd/rdd.pythonanywhere.com/media/'
+MEDIA_URL='/home/rdd/rdd.pythonanywhere.com/media'
